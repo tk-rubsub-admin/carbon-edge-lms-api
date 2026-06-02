@@ -1,5 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: db/changelog/changes/001-create-user-auth-schema.yaml
-  - include:
-      file: db/changelog/changes/002-create-launch-tokens.yaml

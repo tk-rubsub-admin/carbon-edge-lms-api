@@ -1,0 +1,66 @@
+services:
+  db:
+    image: mariadb:11
+    container_name: moodle-db
+    restart: always
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --innodb-file-per-table=1
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: moodlepass
+    volumes:
+      - db_data:/var/lib/mysql
+
+  moodle:
+    image: moodlehq/moodle-php-apache:8.2
+    container_name: moodle
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8085:80"
+    volumes:
+      - ./moodle-src:/var/www/html/lms
+      - ./moodledata:/var/moodledata
+
+  be-db:
+    image: mysql:8.0
+    container_name: be-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: elearning
+      MYSQL_USER: elearning_user
+      MYSQL_PASSWORD: P@ssw0rd1234!
+    ports:
+      - "3307:3306"
+    volumes:
+      - be_db_data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    container_name: lms-api
+    restart: always
+    depends_on:
+      - be-db
+    environment:
+      SERVER_PORT: 8086
+      SPRING_DATASOURCE_URL: jdbc:mysql://be-db:3306/elearning?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: elearning_user
+      SPRING_DATASOURCE_PASSWORD: P@ssw0rd1234!
+      MOODLE_INTEGRATION_MODE: real
+      MOODLE_BASE_URL: https://tk-rubsub.online/lms
+      MOODLE_LOGIN_BASE_URL: https://tk-rubsub.online/lms
+      MOODLE_LOGIN_SERVICE: moodle_mobile_app
+      MOODLE_SERVICE_TOKEN: ${MOODLE_SERVICE_TOKEN:-}
+      MOODLE_LAUNCH_SHARED_SECRET: ${MOODLE_LAUNCH_SHARED_SECRET:-}
+      MOODLE_LAUNCH_TOKEN_TTL_SECONDS: ${MOODLE_LAUNCH_TOKEN_TTL_SECONDS:-60}
+    ports:
+      - "8086:8086"
+
+volumes:
+  db_data:
+  be_db_data:

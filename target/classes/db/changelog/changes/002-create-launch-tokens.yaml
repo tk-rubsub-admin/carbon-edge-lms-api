@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-launch-tokens-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: launch_tokens
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: jti
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: moodle_user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: course_id
+                  type: BIGINT
+              - column:
+                  name: redirect_path
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: consumed_at
+                  type: TIMESTAMP
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: launch_tokens
+            baseColumnNames: user_id
+            constraintName: fk_launch_tokens_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE

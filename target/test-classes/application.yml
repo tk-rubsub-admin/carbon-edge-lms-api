@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+moodle:
+  integration:
+    mode: mock
+    base-url: http://moodle.test
+    login-base-url: http://moodle.test
+    login-service: moodle_mobile_app
+    launch-shared-secret: test-shared-secret
+    launch-token-ttl-seconds: 60
+    launch-plugin-path: /local/lmslaunch/launch.php

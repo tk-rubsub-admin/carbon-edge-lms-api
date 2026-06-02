@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: lms-api
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://203.150.106.14:3306/elearning?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:elearning_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:P@ssw0rd1234!}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+server:
+  port: ${SERVER_PORT:8086}
+  servlet:
+    context-path: /lms-api
+
+moodle:
+  integration:
+    mode: ${MOODLE_INTEGRATION_MODE:real}
+    base-url: ${MOODLE_BASE_URL:https://tk-rubsub.online/lms}
+    login-base-url: ${MOODLE_LOGIN_BASE_URL:https://tk-rubsub.online/lms}
+    service-token: ${MOODLE_SERVICE_TOKEN:b60a821a5bf954bee725a7f654a9318f}
+    login-service: ${MOODLE_LOGIN_SERVICE:moodle_mobile_app}
+    launch-shared-secret: ${MOODLE_LAUNCH_SHARED_SECRET:j6Z3/A68ouQ+CwneFTbg8y2MtJtVlIMi6O3VwBhnakft22o5RWnUQpoGM98yKkjP}
+    launch-token-ttl-seconds: ${MOODLE_LAUNCH_TOKEN_TTL_SECONDS:300}
+    launch-plugin-path: ${MOODLE_LAUNCH_PLUGIN_PATH:/local/lmslaunch/launch.php}

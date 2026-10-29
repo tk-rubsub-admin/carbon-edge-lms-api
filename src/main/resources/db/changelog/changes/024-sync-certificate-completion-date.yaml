@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 026-sync-certificate-completion-date
+      author: codex
+      changes:
+        - sql:
+            sql: >-
+              UPDATE certificates
+              SET issued_at = (
+                SELECT enrollment.completed_at
+                FROM course_student_enrollments enrollment
+                WHERE enrollment.user_id = certificates.user_id
+                  AND enrollment.course_id = certificates.course_id
+              )
+              WHERE EXISTS (
+                SELECT 1
+                FROM course_student_enrollments enrollment
+                WHERE enrollment.user_id = certificates.user_id
+                  AND enrollment.course_id = certificates.course_id
+                  AND enrollment.completed_at IS NOT NULL
+              )

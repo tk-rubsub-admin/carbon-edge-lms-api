@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 022-add-user-profile-flags
+      author: codex
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: first_login
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completed_profile
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+        - addDefaultValue:
+            tableName: users
+            columnName: first_login
+            columnDataType: BOOLEAN
+            defaultValueBoolean: true
+        - addDefaultValue:
+            tableName: users
+            columnName: completed_profile
+            columnDataType: BOOLEAN
+            defaultValueBoolean: false

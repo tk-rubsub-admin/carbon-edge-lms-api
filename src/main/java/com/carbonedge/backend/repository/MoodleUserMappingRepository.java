@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MoodleUserMappingRepository extends JpaRepository<MoodleUserMapping, Long> {
 
     Optional<MoodleUserMapping> findByUser(UserAccount user);
+
+    Optional<MoodleUserMapping> findByMoodleUserId(Long moodleUserId);
 }

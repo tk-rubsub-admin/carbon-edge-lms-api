@@ -23,6 +23,13 @@ public class AuthSession {
     @Column(nullable = false, unique = true, length = 120)
     private String accessToken;
 
+    @Column(unique = true, length = 64)
+    private String refreshTokenHash;
+
+    private Instant refreshExpiresAt;
+
+    private Instant lastRefreshedAt;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private UserAccount user;
@@ -51,6 +58,13 @@ public class AuthSession {
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
+
+    public String getRefreshTokenHash() { return refreshTokenHash; }
+    public void setRefreshTokenHash(String refreshTokenHash) { this.refreshTokenHash = refreshTokenHash; }
+    public Instant getRefreshExpiresAt() { return refreshExpiresAt; }
+    public void setRefreshExpiresAt(Instant refreshExpiresAt) { this.refreshExpiresAt = refreshExpiresAt; }
+    public Instant getLastRefreshedAt() { return lastRefreshedAt; }
+    public void setLastRefreshedAt(Instant lastRefreshedAt) { this.lastRefreshedAt = lastRefreshedAt; }
 
     public UserAccount getUser() {
         return user;
@@ -82,5 +96,9 @@ public class AuthSession {
 
     public boolean isActive() {
         return revokedAt == null && expiresAt.isAfter(Instant.now());
+    }
+
+    public boolean isRefreshActive() {
+        return revokedAt == null && refreshExpiresAt != null && refreshExpiresAt.isAfter(Instant.now());
     }
 }

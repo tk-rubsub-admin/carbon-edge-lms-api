@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 030-add-course-default-satisfaction-surveys
+      author: codex
+      changes:
+        - addColumn:
+            tableName: satisfaction_surveys
+            columns:
+              - column: {name: default_for_course_id, type: BIGINT}
+        - addUniqueConstraint:
+            tableName: satisfaction_surveys
+            columnNames: default_for_course_id
+            constraintName: uk_satisfaction_survey_default_course

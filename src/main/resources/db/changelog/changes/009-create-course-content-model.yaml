@@ -1,0 +1,140 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011-create-course-sections-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: course_sections
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: course_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(2000)
+              - column:
+                  name: order_index
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: visible
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: locked
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: course_sections
+            indexName: idx_course_sections_course_order
+            columns:
+              - column:
+                  name: course_id
+              - column:
+                  name: order_index
+  - changeSet:
+      id: 012-create-course-content-items-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: course_content_items
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: section_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_course_content_items_section
+                    references: course_sections(id)
+              - column:
+                  name: type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(2000)
+              - column:
+                  name: order_index
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: required
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: visible
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: duration_seconds
+                  type: INT
+              - column:
+                  name: source_url
+                  type: VARCHAR(1000)
+              - column:
+                  name: payload_json
+                  type: VARCHAR(4000)
+              - column:
+                  name: published_at
+                  type: TIMESTAMP
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: course_content_items
+            indexName: idx_course_content_items_section_order
+            columns:
+              - column:
+                  name: section_id
+              - column:
+                  name: order_index

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 026-add-video-progress-to-course-content-progress
+      author: codex
+      changes:
+        - addColumn:
+            tableName: course_content_progress
+            columns:
+              - column:
+                  name: video_position_ms
+                  type: BIGINT
+              - column:
+                  name: video_duration_ms
+                  type: BIGINT

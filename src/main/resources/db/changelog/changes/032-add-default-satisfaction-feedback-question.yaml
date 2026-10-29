@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 032-add-default-satisfaction-feedback-question
+      author: codex
+      changes:
+        - insert:
+            tableName: satisfaction_default_questions
+            columns:
+              - column: { name: order_index, valueNumeric: 3 }
+              - column: { name: prompt, value: "ท่านมีความคิดเห็น/ข้อเสนอแนะเพิ่มเติมอย่างไร" }
+        - sql:
+            sql: >-
+              INSERT INTO satisfaction_questions (survey_id, type, prompt, options_json, is_required, order_index, active)
+              SELECT s.id, 'TEXT', 'ท่านมีความคิดเห็น/ข้อเสนอแนะเพิ่มเติมอย่างไร', NULL, FALSE, 3, TRUE
+              FROM satisfaction_surveys s
+              WHERE s.default_for_course_id IS NOT NULL
+                AND NOT EXISTS (
+                  SELECT 1 FROM satisfaction_questions q WHERE q.survey_id = s.id AND q.order_index = 3
+                )
+      rollback:
+        - delete:
+            tableName: satisfaction_default_questions
+            where: order_index = 3

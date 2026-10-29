@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-add-user-role
+      author: codex
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: role
+                  type: VARCHAR(20)
+                  defaultValue: STUDENT
+                  constraints:
+                    nullable: false
+        - update:
+            tableName: users
+            where: admin = true
+            columns:
+              - column:
+                  name: role
+                  value: ADMIN

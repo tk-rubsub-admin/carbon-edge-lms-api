@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 029-create-satisfaction-surveys
+      author: codex
+      changes:
+        - createTable:
+            tableName: satisfaction_surveys
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: course_id, type: BIGINT, constraints: {nullable: false}}
+              - column: {name: title, type: VARCHAR(200), constraints: {nullable: false}}
+              - column: {name: description, type: VARCHAR(4000)}
+              - column: {name: status, type: VARCHAR(20), constraints: {nullable: false}}
+              - column: {name: opens_at, type: TIMESTAMP}
+              - column: {name: closes_at, type: TIMESTAMP}
+              - column: {name: created_at, type: TIMESTAMP, constraints: {nullable: false}}
+              - column: {name: updated_at, type: TIMESTAMP, constraints: {nullable: false}}
+        - createTable:
+            tableName: satisfaction_questions
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: survey_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_satisfaction_questions_survey, references: satisfaction_surveys(id)}}
+              - column: {name: type, type: VARCHAR(30), constraints: {nullable: false}}
+              - column: {name: prompt, type: VARCHAR(2000), constraints: {nullable: false}}
+              - column: {name: options_json, type: VARCHAR(4000)}
+              - column: {name: is_required, type: BOOLEAN, constraints: {nullable: false}}
+              - column: {name: order_index, type: INT, constraints: {nullable: false}}
+              - column: {name: active, type: BOOLEAN, constraints: {nullable: false}}
+        - createTable:
+            tableName: satisfaction_responses
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: survey_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_satisfaction_responses_survey, references: satisfaction_surveys(id)}}
+              - column: {name: user_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_satisfaction_responses_user, references: users(id)}}
+              - column: {name: survey_title_snapshot, type: VARCHAR(200), constraints: {nullable: false}}
+              - column: {name: submitted_at, type: TIMESTAMP, constraints: {nullable: false}}
+        - addUniqueConstraint: {tableName: satisfaction_responses, columnNames: survey_id,user_id, constraintName: uk_satisfaction_response_survey_user}
+        - createTable:
+            tableName: satisfaction_answers
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: response_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_satisfaction_answers_response, references: satisfaction_responses(id)}}
+              - column: {name: question_id, type: BIGINT, constraints: {foreignKeyName: fk_satisfaction_answers_question, references: satisfaction_questions(id)}}
+              - column: {name: question_prompt_snapshot, type: VARCHAR(2000), constraints: {nullable: false}}
+              - column: {name: question_type_snapshot, type: VARCHAR(30), constraints: {nullable: false}}
+              - column: {name: answer_text, type: TEXT}
+        - createIndex:
+            tableName: satisfaction_responses
+            indexName: idx_satisfaction_response_survey
+            columns:
+              - column: {name: survey_id}

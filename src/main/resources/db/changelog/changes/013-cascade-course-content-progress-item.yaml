@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 016-cascade-course-content-progress-item
+      author: codex
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: course_content_progress
+            constraintName: fk_course_content_progress_item
+        - addForeignKeyConstraint:
+            baseTableName: course_content_progress
+            baseColumnNames: content_item_id
+            constraintName: fk_course_content_progress_item
+            referencedTableName: course_content_items
+            referencedColumnNames: id
+            onDelete: CASCADE

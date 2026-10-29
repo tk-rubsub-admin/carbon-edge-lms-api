@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 017-create-quiz-model
+      author: codex
+      changes:
+        - createTable:
+            tableName: quizzes
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: content_item_id, type: BIGINT, constraints: {nullable: false, unique: true, foreignKeyName: fk_quizzes_content_item, references: course_content_items(id)}}
+              - column: {name: passing_score, type: INT, constraints: {nullable: false}}
+              - column: {name: max_attempts, type: INT}
+              - column: {name: time_limit_seconds, type: INT}
+              - column: {name: opens_at, type: TIMESTAMP}
+              - column: {name: closes_at, type: TIMESTAMP}
+              - column: {name: published, type: BOOLEAN, constraints: {nullable: false}}
+              - column: {name: created_at, type: TIMESTAMP, constraints: {nullable: false}}
+              - column: {name: updated_at, type: TIMESTAMP, constraints: {nullable: false}}
+        - createTable:
+            tableName: quiz_questions
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: quiz_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_quiz_questions_quiz, references: quizzes(id)}}
+              - column: {name: type, type: VARCHAR(30), constraints: {nullable: false}}
+              - column: {name: prompt, type: VARCHAR(4000), constraints: {nullable: false}}
+              - column: {name: feedback, type: VARCHAR(4000)}
+              - column: {name: points, type: INT, constraints: {nullable: false}}
+              - column: {name: order_index, type: INT, constraints: {nullable: false}}
+        - createTable:
+            tableName: quiz_options
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: question_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_quiz_options_question, references: quiz_questions(id)}}
+              - column: {name: text, type: VARCHAR(2000), constraints: {nullable: false}}
+              - column: {name: correct, type: BOOLEAN, constraints: {nullable: false}}
+              - column: {name: order_index, type: INT, constraints: {nullable: false}}
+        - createTable:
+            tableName: quiz_attempts
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: quiz_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_quiz_attempts_quiz, references: quizzes(id)}}
+              - column: {name: user_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_quiz_attempts_user, references: users(id)}}
+              - column: {name: attempt_number, type: INT, constraints: {nullable: false}}
+              - column: {name: status, type: VARCHAR(20), constraints: {nullable: false}}
+              - column: {name: started_at, type: TIMESTAMP, constraints: {nullable: false}}
+              - column: {name: submitted_at, type: TIMESTAMP}
+              - column: {name: expires_at, type: TIMESTAMP}
+              - column: {name: score, type: INT}
+              - column: {name: max_score, type: INT}
+              - column: {name: passed, type: BOOLEAN}
+        - createTable:
+            tableName: quiz_attempt_answers
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: attempt_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_quiz_attempt_answers_attempt, references: quiz_attempts(id)}}
+              - column: {name: question_id, type: BIGINT, constraints: {nullable: false, foreignKeyName: fk_quiz_attempt_answers_question, references: quiz_questions(id)}}
+              - column: {name: selected_option_ids, type: VARCHAR(1000)}
+        - addUniqueConstraint: {tableName: quiz_attempt_answers, columnNames: attempt_id,question_id, constraintName: uk_quiz_attempt_answer}

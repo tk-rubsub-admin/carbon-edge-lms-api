@@ -1,0 +1,39 @@
+
+g
+java:S1192Î"IDefine a constant instead of duplicating this literal "required" 3 times.(òƒ8ìë‘Õ“4
+f
+java:S1192¿"HDefine a constant instead of duplicating this literal "visible" 6 times.(¦ùû8Öê®ôŒ4
+j
+java:S1192Ó"LDefine a constant instead of duplicating this literal "publishedAt" 3 times.(§ÉÚİ8Öê®ôŒ4
+z
+java:S1192±"\Define a constant instead of duplicating this literal "User must have STUDENT role" 3 times.(£—„­8••èß4
+s
+java:S1192Ğ"PDefine a constant instead of duplicating this literal "durationSeconds" 4 times.(¾Å“¡øÿÿÿÿ8×ê®ôŒ4
+j
+java:S1192½"LDefine a constant instead of duplicating this literal "description" 4 times.(üÄ •8×ê®ôŒ4
+‚
+java:S1192è"_Define a constant instead of duplicating this literal "Content item title is required" 3 times.(šöÎüÿÿÿÿ8••èß4
+d
+java:S1192¼"FDefine a constant instead of duplicating this literal "title" 4 times.(ããˆ‰8×ê®ôŒ4
+~
+java:S1192‡"[Define a constant instead of duplicating this literal "User has no Moodle mapping" 6 times.(—óüËùÿÿÿÿ8••èß4
+}
+java:S1192”"ZDefine a constant instead of duplicating this literal "Section title is required" 3 times.(»°¯ßùÿÿÿÿ8••èß4
+n
+java:S1192¾"KDefine a constant instead of duplicating this literal "orderIndex" 6 times.(ª§ùÚüÿÿÿÿ8×ê®ôŒ4
+v	java:S135¢
+"YReduce the total number of break and continue statements in this loop to use at most one.(÷øŸ×8×ê®ôŒ4
+F
+java:S5411¢"(Use a primitive boolean expression here.(¦ÇÀù8™•èß4
+x
+java:S6809É"UCall transactional methods via an injected dependency instead of directly via 'this'.(Ò¹ûÿÿÿÿ8ï˜èß4
+s
+java:S6809Ø"UCall transactional methods via an injected dependency instead of directly via 'this'.(šÖ¾ã8ï˜èß4
+e
+java:S1612µ"GReplace this lambda with method reference 'this::buildSectionSnapshot'.(„Àêµ8ö®ôŒ4
+o
+java:S3776×"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(ƒáíO8†ö®ôŒ4
+R
+java:S1172ì	"/Remove this unused method parameter "courseId".(°ºàéøÿÿÿÿ8«ò‘Õ“4
+T
+java:S1144ƒ	"6Remove this unused private "parseTemplateType" method.(ÀÃÒ½8ûö®ôŒ4

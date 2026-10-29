@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 027-add-quiz-randomization
+      author: codex
+      changes:
+        - addColumn:
+            tableName: quizzes
+            columns:
+              - column:
+                  name: randomize_questions
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: randomize_options
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

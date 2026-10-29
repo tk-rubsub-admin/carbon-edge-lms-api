@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 025-add-user-registration-details
+      author: codex
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column: {name: title, type: VARCHAR(20)}
+              - column: {name: phone_number, type: VARCHAR(20)}
+              - column: {name: address_house_number, type: VARCHAR(50)}
+              - column: {name: address_moo, type: VARCHAR(50)}
+              - column: {name: address_building, type: VARCHAR(255)}
+              - column: {name: address_alley, type: VARCHAR(255)}
+              - column: {name: address_road, type: VARCHAR(255)}
+              - column: {name: address_province, type: VARCHAR(100)}
+              - column: {name: address_district, type: VARCHAR(100)}
+              - column: {name: address_subdistrict, type: VARCHAR(100)}
+              - column: {name: address_postal_code, type: VARCHAR(10)}
+              - column: {name: pdpa_consent_at, type: TIMESTAMP}
+              - column: {name: information_certified_at, type: TIMESTAMP}

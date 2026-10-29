@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 028-consolidate-user-roles
+      author: codex
+      changes:
+        - update:
+            tableName: users
+            where: role IN ('TEACHER', 'SUPER_ADMIN')
+            columns:
+              - column:
+                  name: role
+                  value: ADMIN

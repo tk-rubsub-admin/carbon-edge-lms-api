@@ -1,0 +1,16 @@
+
+a
+java:S1192("KDefine a constant instead of duplicating this literal "occurredAt" 3 times.(›å½¼
+R
+java:S14819"0Remove this unused "enrollments" local variable.(ÌÍıÿÿÿÿ8Ûìê«4
+L
+java:S1481:"*Remove this unused "risks" local variable.(ü‚›‡ÿÿÿÿÿ8Ûìê«4
+P
+java:S1481;".Remove this unused "completed" local variable.(«ÚÏ“ûÿÿÿÿ8Ûìê«4
+A
+java:S1168H"$Return an empty map instead of null.(¥¹ï8¤„ë«4
+]	java:S125<"<This block of commented-out lines of code should be removed.(Ö€‘ûÿÿÿÿ8Ûìê«4
+Q
+java:S1128"/Remove this unused import 'java.time.Duration'.(ëá¯‰üÿÿÿÿ8º„ë«4
+Q
+java:S1128	"4Remove this unused import 'java.util.stream.Stream'.(ó÷”8º„ë«4

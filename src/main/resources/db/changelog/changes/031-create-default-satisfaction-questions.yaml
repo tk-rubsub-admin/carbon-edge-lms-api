@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 031-create-default-satisfaction-questions
+      author: codex
+      changes:
+        - createTable:
+            tableName: satisfaction_default_questions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_index
+                  type: INT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: prompt
+                  type: VARCHAR(2000)
+                  constraints:
+                    nullable: false
+        - insert:
+            tableName: satisfaction_default_questions
+            columns:
+              - column: { name: order_index, valueNumeric: 1 }
+              - column: { name: prompt, value: "โดยภาพรวม ท่านมีความพึงพอใจต่อหลักสูตรนี้ในระดับใด?" }
+        - insert:
+            tableName: satisfaction_default_questions
+            columns:
+              - column: { name: order_index, valueNumeric: 2 }
+              - column: { name: prompt, value: "เนื้อหาในหลักสูตรนี้เป็นประโยชน์ต่อการนำไปใช้ของท่านในระดับใด?" }
+      rollback:
+        - dropTable:
+            tableName: satisfaction_default_questions

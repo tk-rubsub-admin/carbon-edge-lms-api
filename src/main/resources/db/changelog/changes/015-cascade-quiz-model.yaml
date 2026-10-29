@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 018-cascade-quiz-model
+      author: codex
+      changes:
+        - dropForeignKeyConstraint: {baseTableName: quiz_attempt_answers, constraintName: fk_quiz_attempt_answers_attempt}
+        - dropForeignKeyConstraint: {baseTableName: quiz_attempt_answers, constraintName: fk_quiz_attempt_answers_question}
+        - dropForeignKeyConstraint: {baseTableName: quiz_options, constraintName: fk_quiz_options_question}
+        - dropForeignKeyConstraint: {baseTableName: quiz_attempts, constraintName: fk_quiz_attempts_quiz}
+        - dropForeignKeyConstraint: {baseTableName: quiz_questions, constraintName: fk_quiz_questions_quiz}
+        - dropForeignKeyConstraint: {baseTableName: quizzes, constraintName: fk_quizzes_content_item}
+        - addForeignKeyConstraint: {baseTableName: quizzes, baseColumnNames: content_item_id, constraintName: fk_quizzes_content_item, referencedTableName: course_content_items, referencedColumnNames: id, onDelete: CASCADE}
+        - addForeignKeyConstraint: {baseTableName: quiz_questions, baseColumnNames: quiz_id, constraintName: fk_quiz_questions_quiz, referencedTableName: quizzes, referencedColumnNames: id, onDelete: CASCADE}
+        - addForeignKeyConstraint: {baseTableName: quiz_options, baseColumnNames: question_id, constraintName: fk_quiz_options_question, referencedTableName: quiz_questions, referencedColumnNames: id, onDelete: CASCADE}
+        - addForeignKeyConstraint: {baseTableName: quiz_attempts, baseColumnNames: quiz_id, constraintName: fk_quiz_attempts_quiz, referencedTableName: quizzes, referencedColumnNames: id, onDelete: CASCADE}
+        - addForeignKeyConstraint: {baseTableName: quiz_attempt_answers, baseColumnNames: attempt_id, constraintName: fk_quiz_attempt_answers_attempt, referencedTableName: quiz_attempts, referencedColumnNames: id, onDelete: CASCADE}
+        - addForeignKeyConstraint: {baseTableName: quiz_attempt_answers, baseColumnNames: question_id, constraintName: fk_quiz_attempt_answers_question, referencedTableName: quiz_questions, referencedColumnNames: id, onDelete: CASCADE}

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 018-create-certificates
+      author: codex
+      changes:
+        - createTable:
+            tableName: certificates
+            columns:
+              - column: {name: id, type: bigint, autoIncrement: true, constraints: {primaryKey: true, nullable: false}}
+              - column: {name: verification_code, type: varchar(64), constraints: {nullable: false, unique: true}}
+              - column: {name: user_id, type: bigint, constraints: {nullable: false}}
+              - column: {name: course_id, type: bigint, constraints: {nullable: false}}
+              - column: {name: issued_at, type: datetime, constraints: {nullable: false}}
+        - addUniqueConstraint: {tableName: certificates, columnNames: user_id,course_id, constraintName: uk_certificate_user_course}
+        - addForeignKeyConstraint: {baseTableName: certificates, baseColumnNames: user_id, constraintName: fk_certificate_user, referencedTableName: users, referencedColumnNames: id, onDelete: CASCADE}

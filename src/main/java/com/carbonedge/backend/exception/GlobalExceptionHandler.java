@@ -3,15 +3,30 @@ package com.carbonedge.backend.exception;
 import java.time.Instant;
 import java.util.Map;
 import java.util.stream.Collectors;
+import com.carbonedge.backend.service.SystemSettingsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+    private final SystemSettingsService systemSettingsService;
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiErrorResponse> handleMaxUploadSizeExceeded(MaxUploadSizeExceededException exception) {
+        int maxUploadSizeMb = systemSettingsService.getMaxUploadSizeMb();
+        return build(
+                HttpStatus.PAYLOAD_TOO_LARGE,
+                "MAX_UPLOAD_SIZE_EXCEEDED",
+                "File exceeds the configured upload limit of " + maxUploadSizeMb + " MB. Update learning.max-upload-size-mb and restart lms-api."
+        );
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException exception) {
@@ -44,6 +59,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ApiErrorResponse> handleUnauthorized(UnauthorizedException exception) {
         return build(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", exception.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ApiErrorResponse> handleForbidden(ForbiddenException exception) {
+        return build(HttpStatus.FORBIDDEN, "FORBIDDEN", exception.getMessage());
+    }
+
+    @ExceptionHandler(TooManyRequestsException.class)
+    public ResponseEntity<ApiErrorResponse> handleTooManyRequests(TooManyRequestsException exception) {
+        return build(HttpStatus.TOO_MANY_REQUESTS, "RATE_LIMITED", exception.getMessage());
     }
 
     @ExceptionHandler(IntegrationException.class)

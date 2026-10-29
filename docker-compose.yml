@@ -11,7 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: moodle
       MYSQL_USER: moodle
-      MYSQL_PASSWORD: moodlepass
+      MYSQL_PASSWORD: ${MOODLE_DB_PASSWORD:-moodlepass}
     volumes:
       - db_data:/var/lib/mysql
 
@@ -34,7 +34,7 @@ services:
     environment:
       MYSQL_DATABASE: elearning
       MYSQL_USER: elearning_user
-      MYSQL_PASSWORD: P@ssw0rd1234!
+      MYSQL_PASSWORD: ${BACKEND_DB_PASSWORD:-P@ssw0rd1234!}
     ports:
       - "3307:3306"
     volumes:
@@ -50,7 +50,7 @@ services:
       SERVER_PORT: 8086
       SPRING_DATASOURCE_URL: jdbc:mysql://be-db:3306/elearning?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: elearning_user
-      SPRING_DATASOURCE_PASSWORD: P@ssw0rd1234!
+      SPRING_DATASOURCE_PASSWORD: ${BACKEND_DB_PASSWORD:-P@ssw0rd1234!}
       MOODLE_INTEGRATION_MODE: real
       MOODLE_BASE_URL: https://tk-rubsub.online/lms
       MOODLE_LOGIN_BASE_URL: https://tk-rubsub.online/lms
@@ -58,8 +58,22 @@ services:
       MOODLE_SERVICE_TOKEN: ${MOODLE_SERVICE_TOKEN:-}
       MOODLE_LAUNCH_SHARED_SECRET: ${MOODLE_LAUNCH_SHARED_SECRET:-}
       MOODLE_LAUNCH_TOKEN_TTL_SECONDS: ${MOODLE_LAUNCH_TOKEN_TTL_SECONDS:-60}
+      APP_CONTENT_STORAGE_PATH: /app/data/course-content
+      APP_BACKUP_PATH: /app/backups
+      APP_BACKUP_ENCRYPTION_KEY: ${APP_BACKUP_ENCRYPTION_KEY:-}
+      BACKUP_ELEARNING_DB_HOST: be-db
+      BACKUP_ELEARNING_DB_NAME: elearning
+      BACKUP_ELEARNING_DB_USER: elearning_user
+      BACKUP_ELEARNING_DB_PASSWORD: ${BACKEND_DB_PASSWORD:-P@ssw0rd1234!}
+      BACKUP_MOODLE_DB_HOST: moodle-db
+      BACKUP_MOODLE_DB_NAME: moodle
+      BACKUP_MOODLE_DB_USER: moodle
+      BACKUP_MOODLE_DB_PASSWORD: ${MOODLE_DB_PASSWORD:-moodlepass}
     ports:
       - "8086:8086"
+    volumes:
+      - ./data/course-content:/app/data/course-content
+      - ./backups:/app/backups
 
 volumes:
   db_data:

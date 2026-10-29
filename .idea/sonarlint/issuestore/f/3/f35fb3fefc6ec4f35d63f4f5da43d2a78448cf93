@@ -1,0 +1,13 @@
+
+h	java:S112³"FDefine and throw a dedicated exception instead of using a generic one.(ŠÏ¥õùÿÿÿÿ8íÏÄà4
+h	java:S112Œ"FDefine and throw a dedicated exception instead of using a generic one.(ß°šãûÿÿÿÿ8Š¦·¯4
+h	java:S112’"FDefine and throw a dedicated exception instead of using a generic one.(Œ¥‘õøÿÿÿÿ8åæÖ4
+Y	java:S107ğ"<Method has 9 parameters, which is greater than 7 authorized.(í€ëø8ÙéÖ4
+Y	java:S107º"<Method has 8 parameters, which is greater than 7 authorized.(°¯‰Ò8ÕĞÄà4
+Y	java:S107É"<Method has 9 parameters, which is greater than 7 authorized.(Üà¢ˆ8ÕĞÄà4
+T
+java:S1144ª"7Remove this unused private "drawCenteredFitted" method.(¬Ş«p8Í§·¯4
+Q
+java:S1144º"3Remove this unused private "drawLeftFitted" method.(°¯‰Ò8Í§·¯4
+V
+java:S1144É"8Remove this unused private "drawWrappedCentered" method.(Üà¢ˆ8Í§·¯4

@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 024-add-course-enrollment-status
+      author: codex
+      changes:
+        - addColumn:
+            tableName: course_student_enrollments
+            columns:
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  defaultValue: NOT_STARTED
+                  constraints:
+                    nullable: false
+        - sql:
+            sql: >-
+              UPDATE course_student_enrollments
+              SET status = CASE
+                WHEN completed_at IS NOT NULL THEN 'COMPLETED'
+                WHEN started_at IS NOT NULL THEN 'IN_PROGRESS'
+                ELSE 'NOT_STARTED'
+              END
+      rollback:
+        - dropColumn:
+            tableName: course_student_enrollments
+            columnName: status

@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 019-add-refresh-tokens-to-auth-sessions
+      author: codex
+      changes:
+        - addColumn:
+            tableName: auth_sessions
+            columns:
+              - column:
+                  name: refresh_token_hash
+                  type: varchar(64)
+              - column:
+                  name: refresh_expires_at
+                  type: datetime
+              - column:
+                  name: last_refreshed_at
+                  type: datetime
+        - addUniqueConstraint:
+            tableName: auth_sessions
+            columnNames: refresh_token_hash
+            constraintName: uk_auth_sessions_refresh_token_hash
+        - createIndex:
+            tableName: auth_sessions
+            indexName: idx_auth_sessions_user_revoked
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: revoked_at

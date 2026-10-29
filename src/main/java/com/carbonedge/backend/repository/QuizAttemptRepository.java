@@ -1,0 +1,3 @@
+package com.carbonedge.backend.repository;
+import com.carbonedge.backend.model.QuizAttempt; import com.carbonedge.backend.model.QuizAttemptStatus; import java.util.List; import java.util.Optional; import org.springframework.data.jpa.repository.JpaRepository;
+public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Long> { List<QuizAttempt> findAllByQuizIdAndUserIdOrderByAttemptNumberDesc(Long quizId, Long userId); List<QuizAttempt> findAllByUserId(Long userId); Optional<QuizAttempt> findFirstByQuizIdAndUserIdAndStatusOrderByAttemptNumberDesc(Long quizId, Long userId, QuizAttemptStatus status); long countByQuizIdAndUserId(Long quizId, Long userId); void deleteByQuizId(Long quizId); }

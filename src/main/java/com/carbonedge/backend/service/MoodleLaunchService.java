@@ -18,11 +18,16 @@ import java.util.Base64;
 import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class MoodleLaunchService {
 
     public static final String ISSUER = "lms-api";
@@ -32,14 +37,14 @@ public class MoodleLaunchService {
     private final MoodleIntegrationProperties properties;
     private final ObjectMapper objectMapper;
 
-    public MoodleLaunchService(
-            LaunchTokenRepository launchTokenRepository,
-            MoodleIntegrationProperties properties,
-            ObjectMapper objectMapper
-    ) {
-        this.launchTokenRepository = launchTokenRepository;
-        this.properties = properties;
-        this.objectMapper = objectMapper;
+    public void requirePluginSecret(String pluginSecretHeader) {
+        requireSharedSecret();
+        if (!MessageDigest.isEqual(
+                properties.getLaunchSharedSecret().getBytes(StandardCharsets.UTF_8),
+                safeString(pluginSecretHeader).getBytes(StandardCharsets.UTF_8)
+        )) {
+            throw new UnauthorizedException("Invalid plugin secret");
+        }
     }
 
     @Transactional
@@ -203,5 +208,23 @@ public class MoodleLaunchService {
 
     private Long safeLong(Long value) {
         return value == null ? -1L : value;
+    }
+
+    private String fingerprint(String value) {
+        if (!StringUtils.hasText(value)) {
+            return "empty";
+        }
+
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+            StringBuilder builder = new StringBuilder();
+            for (int index = 0; index < 4 && index < hash.length; index++) {
+                builder.append(String.format("%02x", hash[index]));
+            }
+            return builder.toString();
+        } catch (Exception exception) {
+            return "unavailable";
+        }
     }
 }

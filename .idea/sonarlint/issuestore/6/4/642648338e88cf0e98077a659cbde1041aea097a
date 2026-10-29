@@ -1,0 +1,63 @@
+
+~
+java:S1192Θ"[Define a constant instead of duplicating this literal "Authentication is required" 3 times.(ªΟΰΖόÿÿÿÿ8Ω©¦ς„4
+l
+java:S1192E"ODefine a constant instead of duplicating this literal "Quiz not found" 3 times.(ώ†α8ς›…4
+
+java:S2681Ζ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(ªω™ÿÿÿÿÿ8ά©¦ς„4
+
+java:S2681Θ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(ªΟΰΖόÿÿÿÿ8ά©¦ς„4
+
+java:S2681Θ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(ªΟΰΖόÿÿÿÿ8ά©¦ς„4
+™
+java:S2681Ι"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(ΫρΪΓ8ά©¦ς„4
+™
+java:S2681Κ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(­ω‘ 8ά©¦ς„4
+™
+java:S2681Λ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(±Ά€­8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+™
+java:S2681Ξ"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(άσ¦8ά©¦ς„4
+
+java:S2681Ο"{This statement will not be executed conditionally; only the first statement will be. The rest will execute unconditionally.(ωε«ψÿÿÿÿ8ά©¦ς„4
+S
+java:S3984W"6Throw this exception or remove this useless statement.(ωµµΥ8τ›…4
+o
+java:S3776o"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(Γς¨·8±ª¦ς„4
+I
+java:S1659™"&Declare "maxScore" on a separate line.(¦Ϊ»½όÿÿÿÿ8µ»ς„4
+Z
+java:S3972Θ"7Move this "if" to a new line or add the missing "else".(ªΟΰΖόÿÿÿÿ8·ª¦ς„4
+U
+java:S3972Λ"7Move this "if" to a new line or add the missing "else".(±Ά€­8·ª¦ς„4
+p
+java:S3776Ξ"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(άσ¦8Έª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Έª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Έª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Έª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Ήª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Ήª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Ήª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Ήª¦ς„4
+U
+java:S3972Ξ"7Move this "if" to a new line or add the missing "else".(άσ¦8Ήª¦ς„4

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 023-add-course-enrollment-progress
+      author: codex
+      changes:
+        - addColumn:
+            tableName: course_student_enrollments
+            columns:
+              - column:
+                  name: started_at
+                  type: TIMESTAMP
+              - column:
+                  name: completed_at
+                  type: TIMESTAMP

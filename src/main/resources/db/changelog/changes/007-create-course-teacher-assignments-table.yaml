@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-create-course-teacher-assignments-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: course_teacher_assignments
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: course_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: course_teacher_assignments
+            columnNames: user_id, course_id
+            constraintName: uq_course_teacher_assignment_user_course
+        - addForeignKeyConstraint:
+            baseTableName: course_teacher_assignments
+            baseColumnNames: user_id
+            constraintName: fk_course_teacher_assignments_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE

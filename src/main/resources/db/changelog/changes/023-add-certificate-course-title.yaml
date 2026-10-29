@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 025-add-certificate-course-title
+      author: codex
+      changes:
+        - addColumn:
+            tableName: certificates
+            columns:
+              - column:
+                  name: course_title
+                  type: VARCHAR(255)
+      rollback:
+        - dropColumn:
+            tableName: certificates
+            columnName: course_title

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-add-page-progress-to-course-content-progress
+      author: codex
+      changes:
+        - addColumn:
+            tableName: course_content_progress
+            columns:
+              - column:
+                  name: current_page
+                  type: INT
+              - column:
+                  name: total_pages
+                  type: INT
+              - column:
+                  name: last_viewed_at
+                  type: TIMESTAMP

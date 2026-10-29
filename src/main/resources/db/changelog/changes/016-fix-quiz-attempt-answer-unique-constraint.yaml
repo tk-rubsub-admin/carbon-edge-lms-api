@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 019-fix-quiz-attempt-answer-unique-constraint
+      author: codex
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: quiz_attempt_answers
+            constraintName: fk_quiz_attempt_answers_attempt
+        - dropUniqueConstraint:
+            tableName: quiz_attempt_answers
+            constraintName: uk_quiz_attempt_answer
+        - addUniqueConstraint:
+            tableName: quiz_attempt_answers
+            columnNames: attempt_id,question_id
+            constraintName: uk_quiz_attempt_answer
+        - addForeignKeyConstraint:
+            baseTableName: quiz_attempt_answers
+            baseColumnNames: attempt_id
+            constraintName: fk_quiz_attempt_answers_attempt
+            referencedTableName: quiz_attempts
+            referencedColumnNames: id
+            onDelete: CASCADE

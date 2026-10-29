@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 017-create-system-settings
+      author: codex
+      changes:
+        - createTable:
+            tableName: system_settings
+            columns:
+              - column:
+                  name: setting_key
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: setting_value
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_secret
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_by_user_id
+                  type: bigint
+              - column:
+                  name: updated_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: system_settings
+            baseColumnNames: updated_by_user_id
+            constraintName: fk_system_settings_updated_by
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - createTable:
+            tableName: system_setting_audits
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: setting_key
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: old_value
+                  type: text
+              - column:
+                  name: new_value
+                  type: text
+              - column:
+                  name: is_secret
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed_by_user_id
+                  type: bigint
+              - column:
+                  name: changed_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: system_setting_audits
+            baseColumnNames: changed_by_user_id
+            constraintName: fk_system_setting_audits_changed_by
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - createIndex:
+            tableName: system_setting_audits
+            indexName: idx_system_setting_audits_key_changed_at
+            columns:
+              - column:
+                  name: setting_key
+              - column:
+                  name: changed_at

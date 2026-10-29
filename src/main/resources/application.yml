@@ -12,10 +12,47 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        type:
+          preferred_boolean_jdbc_type: TINYINT
     show-sql: true
+  mail:
+    host: mail.carbonedge.co.th
+    port: 465
+    username: noreply@carbonedge.co.th
+    password: f$1Od9b56
+    properties:
+      mail:
+        smtp:
+          auth: ${SPRING_MAIL_SMTP_AUTH:true}
+          starttls:
+            enable: ${SPRING_MAIL_SMTP_STARTTLS_ENABLE:false}
+          ssl:
+            enable: ${SPRING_MAIL_SMTP_SSL_ENABLE:true}
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+
+app:
+  frontend-base-url: ${APP_FRONTEND_BASE_URL:http://localhost:4000}
+  public-base-url: ${APP_PUBLIC_BASE_URL:http://localhost:8086/lms-api}
+  content-storage-path: ${APP_CONTENT_STORAGE_PATH:./data/course-content}
+  system-settings-encryption-key: ${APP_SYSTEM_SETTINGS_ENCRYPTION_KEY:}
+  backup:
+    path: ${APP_BACKUP_PATH:./data/backups}
+    encryption-key: ${APP_BACKUP_ENCRYPTION_KEY:R0pHDtGpsj2YPIqwXYsbAk5b/8qnyNm3ytOMxjlbs/o=}
+    dump-command: ${APP_BACKUP_DUMP_COMMAND:/opt/homebrew/bin/mysqldump}
+    elearning:
+      host: ${BACKUP_ELEARNING_DB_HOST:203.150.106.14}
+      port: ${BACKUP_ELEARNING_DB_PORT:3306}
+      database: ${BACKUP_ELEARNING_DB_NAME:elearning}
+      username: ${BACKUP_ELEARNING_DB_USER:elearning_user}
+      password: ${BACKUP_ELEARNING_DB_PASSWORD:P@ssw0rd1234!}
+    moodle:
+      host: ${BACKUP_MOODLE_DB_HOST:moodle-db}
+      port: ${BACKUP_MOODLE_DB_PORT:3306}
+      database: ${BACKUP_MOODLE_DB_NAME:moodle}
+      username: ${BACKUP_MOODLE_DB_USER:moodle}
+      password: ${BACKUP_MOODLE_DB_PASSWORD:moodlepass}
 
 server:
   port: ${SERVER_PORT:8086}
@@ -25,9 +62,12 @@ server:
 moodle:
   integration:
     mode: ${MOODLE_INTEGRATION_MODE:real}
-    base-url: ${MOODLE_BASE_URL:https://tk-rubsub.online/lms}
-    login-base-url: ${MOODLE_LOGIN_BASE_URL:https://tk-rubsub.online/lms}
-    service-token: ${MOODLE_SERVICE_TOKEN:b60a821a5bf954bee725a7f654a9318f}
+    base-url: ${MOODLE_BASE_URL:http://localhost:8085/lms}
+    login-base-url: ${MOODLE_LOGIN_BASE_URL:http://localhost:8085/lms}
+#    base-url: http://119.59.116.239:8095/lms
+#    login-base-url: http://119.59.116.239:8095/lms
+    service-token: ${MOODLE_SERVICE_TOKEN:bea1b845aeb34657474dcfc8b498a499}
+#    service-token: bd0d075ee6029e83e2776313556da990
     login-service: ${MOODLE_LOGIN_SERVICE:moodle_mobile_app}
     launch-shared-secret: ${MOODLE_LAUNCH_SHARED_SECRET:j6Z3/A68ouQ+CwneFTbg8y2MtJtVlIMi6O3VwBhnakft22o5RWnUQpoGM98yKkjP}
     launch-token-ttl-seconds: ${MOODLE_LAUNCH_TOKEN_TTL_SECONDS:300}
